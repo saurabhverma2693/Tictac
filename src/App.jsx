@@ -3,22 +3,31 @@ import GmaeBoard from "./Components/GameBoard";
 import { useState } from "react";
 import Log from "./Components/Log";
 
-function App() {
-  const [gameTurns, setGameTurns] = useState([]);
-  const [activePlayer, SetActivePlayer]  = useState('X');
+function deriveActivePlayer(gameTurns){
+    let currentPlayer = 'X';
 
-  function handleSelectPlayer(rowIndex, colIndex){
-    SetActivePlayer((curActivePlayer)=> curActivePlayer === 'X' ? 'O' : 'X');
-    setGameTurns((prevTurns)=>{
-
-      let currentPlayer = 'X';
-
-      if(prevTurns.length > 0 && prevTurns[0].player === 'X' ){
+      if(gameTurns.length > 0 && gameTurns[0].player === 'X' ){
         currentPlayer = 'O';
       }
+return currentPlayer;
+}
+
+function App() {
+  const [gameTurns, setGameTurns] = useState([]);
+  // const [activePlayer, SetActivePlayer]  = useState('X');
+
+    const activePlayer = deriveActivePlayer(gameTurns);
+
+
+  function handleSelectPlayer(rowIndex, colIndex){
+    // SetActivePlayer((curActivePlayer)=> curActivePlayer === 'X' ? 'O' : 'X');
+    setGameTurns((prevTurns)=>{
+
+const currentPlayer = deriveActivePlayer(prevTurns);
+
 
     const updatedTurns = [
-  {square : { row : rowIndex, col : colIndex  }, player : activePlayer },
+  {square : { row : rowIndex, col : colIndex  }, player : currentPlayer },
   ...prevTurns,
 ];
 return updatedTurns;
