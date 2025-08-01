@@ -36,7 +36,7 @@ return updatedTurns;
          onSelectSquare={handleSelectPlayer} 
           turns ={gameTurns}/>
       </div>
-      <Log />
+      <Log turns={gameTurns} />
     </main>
   );
 }
