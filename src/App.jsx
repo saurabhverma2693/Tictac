@@ -28,7 +28,7 @@ function App() {
 
     const activePlayer = deriveActivePlayer(gameTurns);
 
-    let gameBoard = initialGameBoard;
+    let gameBoard = [...initialGameBoard.map(array => [...array])];
 
   // This is called Derive States from Props
   for (const turn of gameTurns) {
@@ -67,6 +67,10 @@ return updatedTurns;
     });
   }
 
+  function handleRestart(){
+    setGameTurns([]);
+  }
+
   return (
     <main>
       <div id="game-container">
@@ -74,7 +78,7 @@ return updatedTurns;
           <Player initialName="Player 1" symbol="X"  isActive={activePlayer === 'X'}/>
           <Player initialName="Player 2" symbol="O"  isActive={activePlayer === 'O'}/>
         </ol>
-        {(winner || hasDraw) && <GameOver winner={winner} />}
+        {(winner || hasDraw) && <GameOver winner={winner} onRestart={handleRestart} />}
         <GmaeBoard
          onSelectSquare={handleSelectSquare} 
           board ={gameBoard}/>
