@@ -32,7 +32,9 @@ return updatedTurns;
           <Player initialName="Player 1" symbol="X"  isActive={activePlayer === 'X'}/>
           <Player initialName="Player 2" symbol="O"  isActive={activePlayer === 'O'}/>
         </ol>
-        <GmaeBoard onSelectSquare={handleSelectPlayer}  activePlayerSymbol={activePlayer}/>
+        <GmaeBoard
+         onSelectSquare={handleSelectPlayer} 
+          turns ={gameTurns}/>
       </div>
       <Log />
     </main>

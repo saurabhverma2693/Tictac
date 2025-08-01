@@ -4,17 +4,26 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GmaeBoard({ onSelectSquare }) {
-    // const [gameBoard, setGameBoard] = useState(initialGameBoard);
+export default function GmaeBoard({ onSelectSquare, turns }) {
+  let gameBoard = initialGameBoard;
 
-    // function handleSelectSquare(rowIndex,colIndex){
-    //     setGameBoard((prevGameBoard)=>{
-    //         const updatedBoard = [...prevGameBoard.map(innerArray =>[...innerArray])];
-    //         updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
-    //         return updatedBoard; 
-    //     });
-    //     onSelectSquare();
-    // }
+  // This is called Derive States from Props
+  for (const turn of turns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+
+    gameBoard[row][col] = player;
+  }
+  // const [gameBoard, setGameBoard] = useState(initialGameBoard);
+
+  // function handleSelectSquare(rowIndex,colIndex){
+  //     setGameBoard((prevGameBoard)=>{
+  //         const updatedBoard = [...prevGameBoard.map(innerArray =>[...innerArray])];
+  //         updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
+  //         return updatedBoard;
+  //     });
+  //     onSelectSquare();
+  // }
 
   return (
     <ol id="game-board">
@@ -23,7 +32,7 @@ export default function GmaeBoard({ onSelectSquare }) {
           <ol>
             {row.map((playerSymbol, colIndex) => (
               <li key={colIndex}>
-                <button onClick={onSelectSquare}> {playerSymbol} </button>
+                <button onClick={() => onSelectSquare(rowIndex,colIndex)}> {playerSymbol} </button>
               </li>
             ))}
           </ol>
