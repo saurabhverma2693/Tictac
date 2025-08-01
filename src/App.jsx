@@ -4,6 +4,13 @@ import { useState } from "react";
 import Log from "./Components/Log";
 import { WINNING_COMBINATIONS } from "./Components/winning-combination";
 
+const initialGameBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
+];
+
+
 function deriveActivePlayer(gameTurns){
     let currentPlayer = 'X';
 
@@ -15,9 +22,26 @@ return currentPlayer;
 
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
+  // const [hasWinner, setHasWinner] = useState(false);
   // const [activePlayer, SetActivePlayer]  = useState('X');
 
     const activePlayer = deriveActivePlayer(gameTurns);
+
+    let gameBoard = initialGameBoard;
+
+  // This is called Derive States from Props
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+
+    gameBoard[row][col] = player;
+  }
+
+    for(const combination of WINNING_COMBINATIONS){
+      const firstSquareSymbol
+      const secondSquareSymbol
+      const thirdSquareSymbol
+    }
 
 
   function handleSelectPlayer(rowIndex, colIndex){
@@ -44,7 +68,7 @@ return updatedTurns;
         </ol>
         <GmaeBoard
          onSelectSquare={handleSelectPlayer} 
-          turns ={gameTurns}/>
+          board ={gameBoard}/>
       </div>
       <Log turns={gameTurns} />
     </main>
